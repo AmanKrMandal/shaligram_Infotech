@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { createfromAction } from '../redux/slices/signSlices';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createfromAction } from "../redux/slices/signSlices";
 
 const SignUpForm = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -24,15 +24,15 @@ const SignUpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('formData', formData);
+    console.log("formData", formData);
 
     dispatch(createfromAction(formData))
       .unwrap()
       .then(() => {
-        navigate('/login');
+        navigate("/login");
       })
       .catch((error) => {
-        console.error('Signup failed:', error);
+        console.error("Signup failed:", error);
       });
   };
 

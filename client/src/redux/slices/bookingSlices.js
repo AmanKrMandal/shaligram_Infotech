@@ -7,7 +7,8 @@ export const createfromAction = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `http://localhost:4000/api/book/add`,
-        formData
+        formData,
+        // { credentials: true }
       );
       console.log("book", data);
       return data;

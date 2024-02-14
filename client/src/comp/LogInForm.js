@@ -12,25 +12,30 @@ const LogInForm = () => {
     password: '',
   });
 
+  const [error, setError] = useState(null); // State to store login error
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-   
+    setError(null); // Clear any previous errors when input changes
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log('Form submitted:', formData);
     dispatch(createfromAction(formData))
     .unwrap()
     .then(() => {
       navigate('/');
     })
     .catch((error) => {
-      console.error('Signup failed:', error);
+      if (error.message === "Your email is not varified, Check your email") {
+        setError(error.message); // Set error state if email is not verified
+      } else {
+        console.error('Login failed:', error);
+      }
     });
   };
 
@@ -60,7 +65,8 @@ const LogInForm = () => {
             required
           />
         </div>
-        <button type="submit">login</button>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        <button type="submit">Login</button>
       </form>
     </div>
   );

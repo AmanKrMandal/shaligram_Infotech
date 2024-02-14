@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createfromAction } from '../redux/slices/bookingSlices';
+// import { useNavigate } from "react-router-dom";
 
 const BookingForm = () => {
+  // let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
-    bookingDate: '',
-    bookingType: 'Full Day',
-    bookingSlot: '',
-    bookingTime: '',
+    BookingDate: '',
+    BookingType: 'Full Day',
+    BookingTime: '',
   });
 
   const handleChange = (e) => {
@@ -22,18 +23,21 @@ const BookingForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    dispatch(createfromAction(formData))
-    .unwrap()
-    .then(() => {
-      // navigate('/');
-      console.log("FFFF")
-    })
-    .catch((error) => {
-      console.error('Signup failed:', error);
-    });
+    try {
+       dispatch(createfromAction(formData));
+      // setFormData({
+      //   customerName: '',
+      //   customerEmail: '',
+      //   BookingDate: '',
+      //   BookingType: 'Full Day',
+      //   BookingTime: '',
+      // });
+    } catch (error) {
+      console.error('Form submission failed:', error);
+    }
   };
 
   return (
@@ -63,22 +67,22 @@ const BookingForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="bookingDate">Booking Date:</label>
+          <label htmlFor="BookingDate">Booking Date:</label>
           <input
             type="date"
-            id="bookingDate"
-            name="bookingDate"
-            value={formData.bookingDate}
+            id="BookingDate"
+            name="BookingDate"
+            value={formData.BookingDate}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="bookingType">Booking Type:</label>
+          <label htmlFor="BookingType">Booking Type:</label>
           <select
-            id="bookingType"
-            name="bookingType"
-            value={formData.bookingType}
+            id="BookingType"
+            name="BookingType"
+            value={formData.BookingType}
             onChange={handleChange}
             required
           >
@@ -87,29 +91,14 @@ const BookingForm = () => {
             <option value="Custom">Custom</option>
           </select>
         </div>
-        {formData.bookingType === 'Half Day' && (
+        {formData.BookingType === 'Custom' && (
           <div>
-            <label htmlFor="bookingSlot">Booking Slot:</label>
-            <select
-              id="bookingSlot"
-              name="bookingSlot"
-              value={formData.bookingSlot}
-              onChange={handleChange}
-              required
-            >
-              <option value="First Half">First Half</option>
-              <option value="Second Half">Second Half</option>
-            </select>
-          </div>
-        )}
-        {formData.bookingType === 'Custom' && (
-          <div>
-            <label htmlFor="bookingTime">Booking Time:</label>
+            <label htmlFor="BookingTime">Booking Time:</label>
             <input
               type="time"
-              id="bookingTime"
-              name="bookingTime"
-              value={formData.bookingTime}
+              id="BookingTime"
+              name="BookingTime"
+              value={formData.BookingTime}
               onChange={handleChange}
               required
             />

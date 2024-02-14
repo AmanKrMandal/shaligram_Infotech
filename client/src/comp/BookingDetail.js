@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const BookingDetail = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div>dgf</div>;
+};
 
-export default BookingDetail
+export default BookingDetail;
