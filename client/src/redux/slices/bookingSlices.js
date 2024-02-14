@@ -2,14 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const createfromAction = createAsyncThunk(
-  "signup/created",
+  "bookSlices/created",
   async (formData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:4000/api/user/signup`,
+        `http://localhost:4000/api/book/add`,
         formData
       );
-      console.log("data", data);
+      console.log("book", data);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -18,8 +18,8 @@ export const createfromAction = createAsyncThunk(
   }
 );
 
-const signSlices = createSlice({
-  name: "signup",
+const bookSlices = createSlice({
+  name: "bookSlices",
   initialState: {
     loading: false,
     isCreated: false,
@@ -47,4 +47,4 @@ const signSlices = createSlice({
   },
 });
 
-export default signSlices.reducer;
+export default bookSlices.reducer;

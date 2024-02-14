@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createfromAction } from '../redux/slices/bookingSlices';
 
 const BookingForm = () => {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
@@ -20,8 +24,16 @@ const BookingForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can perform form validation and submit the data to the backend
     console.log('Form submitted:', formData);
+    dispatch(createfromAction(formData))
+    .unwrap()
+    .then(() => {
+      // navigate('/');
+      console.log("FFFF")
+    })
+    .catch((error) => {
+      console.error('Signup failed:', error);
+    });
   };
 
   return (

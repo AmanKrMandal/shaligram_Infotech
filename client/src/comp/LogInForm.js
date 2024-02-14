@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createfromAction } from '../redux/slices/loginSlices';
 
 const LogInForm = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     password: '',
   });
@@ -14,11 +18,20 @@ const LogInForm = () => {
       ...formData,
       [name]: value,
     });
+   
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    // console.log('Form submitted:', formData);
+    dispatch(createfromAction(formData))
+    .unwrap()
+    .then(() => {
+      navigate('/');
+    })
+    .catch((error) => {
+      console.error('Signup failed:', error);
+    });
   };
 
   return (
